@@ -1,9 +1,9 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom">
     <div class="container-fluid">
         <div class="d-flex flex-grow-1">
             <span class="w-100 d-lg-none d-block">
                 <!-- hidden spacer to center brand on mobile --></span>
-            <a class="navbar-brand" href="#"> Renginių portalas </a>
+            <a class="navbar-brand" href="/"> Renginių portalas </a>
             <div class="w-100 text-right">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#myNavbar7">
                     <span class="navbar-toggler-icon"></span>

@@ -3,7 +3,7 @@
 
 @include("_partials/head")
 
-<body>
+<body class="bg-dark text-white">
         @include("_partials/nav")
 
         @yield('content')

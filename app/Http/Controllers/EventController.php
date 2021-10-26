@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Event;
+use Illuminate\Support\Facades\Storage;
 
 class EventController extends Controller
 {
@@ -48,12 +49,19 @@ class EventController extends Controller
         $validated = $request->validate([
             'title' => 'required|max:255',
             'description' => 'required',
-            'Data' => 'required',
+            'Data' => 'required'
         ]);
 
         Event::where('id', $event->id)->update($request->only(['title', 'description', 'Data']));
+        
+        if($request->file('img') != null) {
+            Storage::delete('public/'.$event->img);
+            $path_to_img = $request->file('img')->store('public/images');
+            $filename = str_replace('public/', '' , $path_to_img);
+            Event::where('id', $event->id)->update(['img' => $filename]);
+        }
 
-        return redirect('/event/'.$event->id);
+        return redirect('/');
     }
     
     public function viewRemove(Event $event) {
@@ -62,8 +70,10 @@ class EventController extends Controller
 
 
     public function deleteEvent(Event $event){
+        Storage::delete('public/'.$event->img);
         $event->delete();
-        
         return redirect('/');
     }
+
+    
 }

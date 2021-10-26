@@ -10,8 +10,8 @@
                 </div>
                     <div class="card-header">
                         Ar tikrai norite ištrinti šį įvykį?
-                        <a href="/event/{{ $event->id }}/delete/confirm" class="btn btn-danger">Taip</a>
-                        <a href="/event/{{ $event->id }}" class="btn btn-primary">Ne</a>
+                        <a href="/event/{{ $event->id }}/delete/confirm" class="btn btn-danger border-0">Taip</a>
+                        <a href="/event/{{ $event->id }}" class="btn btn-primary border-0">Ne</a>
                     </div>
             </div>
     

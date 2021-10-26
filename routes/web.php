@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AllCategory;
 use App\Http\Controllers\EventController;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,7 +13,6 @@ use App\Http\Controllers\EventController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::get('/', [EventController::class, 'index']);
 Route::get('/form', [EventController::class, 'form']);
 Route::post('/storeEvent', [EventController::class, 'storeEvent']);
@@ -22,3 +21,13 @@ Route::get('/event/edit/{event}', [EventController::class, 'editEvent']);
 Route::patch('/event/edit/{event}', [EventController::class, 'updateEvent']);
 Route::get('/event/{event}/delete/ask', [EventController::class, 'viewRemove']);
 Route::get('/event/{event}/delete/confirm', [EventController::class, 'deleteEvent']);
+
+// all category routes
+Route::get('forma', [AllCategory::class, 'forma']);
+Route::get('/storeCategory', [AllCategory::class, 'storeCategory']);
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+require __DIR__.'/auth.php';
