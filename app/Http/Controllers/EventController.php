@@ -4,15 +4,24 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Event;
+use Auth;
+use Gate;
 use Illuminate\Support\Facades\Storage;
+
 
 class EventController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth', ['except'=>['index', 'showEvent']]);
+    }
+
     public function index()
     {
         $events = Event::all();
         return view("pages.home", compact('events'));
     }
+
     public function form()
     {
         return view("pages.add-event");
@@ -32,7 +41,8 @@ class EventController extends Controller
             'title' => request('title'),
             'description' => request('description'),
             'Data' => request('date'),
-            'img' => $filename
+            'img' => $filename,
+            'owner' => Auth::id()
         ]);
         return redirect("/");
     }
@@ -68,11 +78,13 @@ class EventController extends Controller
         return view('pages.viewRemove', compact('event'));
     }
 
-
     public function deleteEvent(Event $event){
-        Storage::delete('public/'.$event->img);
-        $event->delete();
-        return redirect('/');
+        if (Gate::allows('delete', $event)) {
+            Storage::delete('public/'.$event->img);
+            $event->delete();
+            return redirect('/');
+        }
+        dd('Tu neesi savininkas');
     }
 
     
