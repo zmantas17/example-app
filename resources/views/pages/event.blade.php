@@ -7,8 +7,9 @@
                 <h2 class="fs-4 fw-bold">{{$event->title}}</h2>
                 <p class="mb-8">{{$event->description}}</p>
                 <p>Data: {{$event->Data}}</p>
-                <a href="#" class="btn btn-primary my-2 mx-4 border-0">Registruotis</a>
-                <a href="/event/edit/{{$event->id}}" class="btn btn-warning my-2 border-0">Redaguoti</a>
+                <p>Registracijos: {{$registrationCount}}</p>
+                <a href="/event/{{ $event->id }}/register" class="btn btn-primary my-2 mx-4 border-0">Registruotis</a>
+                <a href="/event/edit/{{ $event->id }}" class="btn btn-warning my-2 border-0">Redaguoti</a>
                 <a href="/event/{{ $event->id }}/delete/ask" class="btn btn-danger my-2 mx-4 border-0">Ištrinti</a>
             </div>
             <!-- <div class="justify-content-center mt-5">

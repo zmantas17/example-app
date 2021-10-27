@@ -21,13 +21,13 @@ Route::get('/event/edit/{event}', [EventController::class, 'editEvent']);
 Route::patch('/event/edit/{event}', [EventController::class, 'updateEvent']);
 Route::get('/event/{event}/delete/ask', [EventController::class, 'viewRemove']);
 Route::get('/event/{event}/delete/confirm', [EventController::class, 'deleteEvent']);
+Route::get('/event/{event}/register', [EventController::class, 'Registration']);
+Route::get('/event/{event}/unregister', [EventController::class, 'unRegistration']);
 
 // all category routes
 Route::get('forma', [AllCategory::class, 'forma']);
-Route::get('/storeCategory', [AllCategory::class, 'storeCategory']);
+Route::post('/storeCategory', [AllCategory::class, 'storeCategory']);
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+Route::get('/dashboard', [EventController::class, 'viewUserEvent'])->middleware(['auth'])->name('dashboard');
 
 require __DIR__.'/auth.php';

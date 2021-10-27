@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Event;
+use App\Models\Category;
 
 class AllCategory extends Controller
 {
@@ -19,7 +19,7 @@ class AllCategory extends Controller
             'title' => 'required|max:255',
         ]);
 
-        Event::create([
+        Category::create([
             'title' => request('title')
         ]);
         return redirect("/");

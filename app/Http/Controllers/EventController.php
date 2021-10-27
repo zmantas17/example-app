@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Event;
+use App\Models\Registration;
 use Auth;
 use Gate;
 use Illuminate\Support\Facades\Storage;
@@ -48,7 +49,8 @@ class EventController extends Controller
     }
 
     public function showEvent(Event $event){
-        return view("pages.event", compact('event'));
+        $registrationCount = Registration::where('eventID', $event->id) -> count();
+        return view("pages.event", compact('event', 'registrationCount'));
     }
 
     public function editEvent(Event $event){
@@ -87,5 +89,39 @@ class EventController extends Controller
         dd('Tu neesi savininkas');
     }
 
+    public function Registration(Event $event) {
+        if (Registration::where(['userID' => Auth::id(), 'eventID' => $event->id])->count() === 1) {
+            dd('Jūs jau užsiregistravote į šį renginį');
+        }
+
+        Registration::create([
+            'eventID' => $event->id,
+            'userID' => Auth::id()
+        ]);
+
+        return redirect('/');
+    }
+
+    public function unRegistration(Event $event) {
+        $registration = Registration::where([
+            'eventID' => $event->id,
+            'userID' => Auth::id()
+        ]);
+
+        $registration->delete();
+
+        return redirect('/');
+    }
+
+    public function viewUserEvent() {
+        $userEvents = Registration::where('userID', Auth::id())->get();
+        $events = [];
+
+        foreach($userEvents as $userEvent) {
+            array_push($events, Event::find($userEvent -> eventID));
+        }
+
+        return view('dashboard', compact('events'));
+    }
     
 }
