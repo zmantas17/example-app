@@ -28,6 +28,6 @@ Route::get('/event/{event}/unregister', [EventController::class, 'unRegistration
 Route::get('forma', [AllCategory::class, 'forma']);
 Route::post('/storeCategory', [AllCategory::class, 'storeCategory']);
 
-Route::get('/dashboard', [EventController::class, 'viewUserEvent'])->middleware(['auth'])->name('dashboard');
+Route::get('/dashboard', [EventController::class, 'viewUserEvent'])->middleware(['auth'])->name('dashboard'); 
 
 require __DIR__.'/auth.php';

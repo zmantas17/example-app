@@ -35,6 +35,7 @@ class EventController extends Controller
             'date' => 'required',
             'img' => 'mimes: jpg,jpeg,png|required|max:10000'
         ]);
+        
         $path = $request->file('img')->store('public/images');
         $filename = str_replace('public/',"",$path);
 
